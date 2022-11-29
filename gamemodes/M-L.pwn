@@ -2807,6 +2807,7 @@ Text3D:dice_text,
 new InfoDice[MAX_TABLES_DICE][InfoDice_];
 new Casino_Flag[MAX_PLAYERS][6];
 new vehiclebatrak[8];
+new vehiclelspd[19];
 
 #define show_casino_td 0
 #define select_casino_table 1
@@ -3993,7 +3994,7 @@ new QueInfo[7][dInfo] = {
 },
 TestASKMassive[MAX_PLAYERS][7],
 
-Float:AutoCP[AUTO_CP_COUNT][3] = {
+/*Float:AutoCP[AUTO_CP_COUNT][3] = {
 	{708.9213,-1414.1073,13.2573},
 	{756.2823,-1408.0419,13.0956},
 	{834.9315,-1408.5364,12.9952},
@@ -4021,9 +4022,9 @@ Float:AutoCP[AUTO_CP_COUNT][3] = {
 	{640.0670,-1562.3260,15.0978},
 	{639.9037,-1421.0099,13.3040},
 	{667.8406,-1408.1588,13.1337},
-	{706.8156,-1414.6401,13.2615}
+	{706.8156,-1414.6401,13.2615} 
 	
-},
+}, */
 Float:AutoCPMav[11][3] = {
 	{749.1631,-1462.2659,74.8871},
 	{869.5973,-1465.4916,155.5767},
@@ -5529,8 +5530,8 @@ new gTeleportsToD[TP_COUNT][enter_info] = { //saneka
 	/*63*/{"Выход",318.6144,1114.5029,1083.8828,5,1,2169.2759,-1674.1080,15.0859,242.2984,0,0},//лаборатория RM
 	/*64*/{"Тир",305.3506,-141.8417,1004.0625,7,66,344.4562,-182.4450,987.6703,2.0303,7,500},//ТИР ЛС
 	/*65*/{"Выход",344.3913,-183.9476,987.6703,7,500,307.0656,-141.2360,1004.0625,293.4333,7,66},//ТИР ЛС выход
-	/*66*/{"Тир",1524.4976,-1677.8920,6.2188,0,0,344.4562,-182.4450,987.6703,2.0303,6,31},//ТИР LSPD вход
-	/*67*/{"Выход",344.3913,-183.9476,987.6703,6,31,1526.6418,-1678.0065,5.8906,267.8597,0,0},//ТИР LSPD выход
+	/*66*/{"Тир",1601.0734,-1636.9688,13.7188,0,0,344.4562,-182.4450,987.6703,2.0303,6,31},//ТИР LSPD вход 1601.0734,-1636.9688,13.7188
+	/*67*/{"Выход",344.3913,-183.9476,987.6703,6,31,1600.9435,-1633.8024,13.7187,267.8597,0,0},//ТИР LSPD выход
 	/*68*/{"Многоквартирный дом",2290.1345,-1795.9583,13.5469,0,0,743.1202,-111.5438,1180.7050,266.5024,4,1},// квартиры
 	/*69*/{"Выход",741.6232,-111.3714,1180.7050,4,1,2292.5627,-1796.0436,13.5469,269.7552,0,0},
 	/*70*/{"Центральный банк",1286.7936,-1329.2477,13.5548,0,0,-1141.1906,15.2285,1169.5699,87.9979,78,2},// банк запаска
@@ -26272,8 +26273,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			case 0: PlayAudioStreamForPlayer(playerid, "http://dorognoe.hostingradio.ru:8000/dorognoe"),SendOk(playerid, "[!]Онлайн радио включено");
 			case 1: PlayAudioStreamForPlayer(playerid, "http://ep256.streamr.ru"),SendOk(playerid, "[!]Онлайн радио включено");
 			case 2: PlayAudioStreamForPlayer(playerid, "http://listen.myradio24.com:9000/8020"),SendOk(playerid, "[!]Онлайн радио включено");
-			case 3: PlayAudioStreamForPlayer(playerid, "http://online-1.gkvr.ru:8000/chanson0-256.aac"), SendOk(playerid, "[!]Онлайн радио включено");
-			case 4: PlayAudioStreamForPlayer(playerid, "http://air.radiorecord.ru:8102/trap_320"), SendOk(playerid, "[!]Онлайн радио включено");
+			case 3: PlayAudioStreamForPlayer(playerid, "https://chanson.hostingradio.ru:8041/chanson256.mp3"), SendOk(playerid, "[!]Онлайн радио включено");
+			case 4: PlayAudioStreamForPlayer(playerid, "https://radio-holding.ru:9433/marusya_default"), SendOk(playerid, "[!]Онлайн радио включено");
 			case 5: PlayAudioStreamForPlayer(playerid, "http://listen.rpfm.ru:9000/premium128"), SendOk(playerid, "[!]Онлайн радио включено");
 			case 6: D(playerid, D_RADIO_1, DSI, ""P"Своя музыка", ""W"Введите ниже ссылку на действующий поток радио/музыки:", "Играть", "Назад");
 			case 7: StopAudioStreamForPlayer(playerid), SendOk(playerid,"[!]Радио выключено");
@@ -30980,8 +30981,8 @@ public OnPlayerEnterRaceCheckpoint(playerid) {
 			DeletePVar(playerid,"pWaitingExam");
 			TI[playerid][tAutoSchool] = 0;
 		}
-		if(slot >= AUTO_CP_COUNT - 1) SetPlayerRaceCheckpoint(playerid, 1, AutoCP[AUTO_CP_COUNT - 1][0], AutoCP[AUTO_CP_COUNT - 1][1], AutoCP[AUTO_CP_COUNT - 1][2], 0.0,0.0,0.0, 3.0);
-		else SetPlayerRaceCheckpoint(playerid, 0, AutoCP[slot][0], AutoCP[slot][1], AutoCP[slot][2], AutoCP[slot+1][0], AutoCP[slot+1][1], AutoCP[slot+1][2], 3.0);
+		//if(slot >= AUTO_CP_COUNT - 1) SetPlayerRaceCheckpoint(playerid, 1, AutoCP[AUTO_CP_COUNT - 1][0], AutoCP[AUTO_CP_COUNT - 1][1], AutoCP[AUTO_CP_COUNT - 1][2], 0.0,0.0,0.0, 3.0);
+		//else SetPlayerRaceCheckpoint(playerid, 0, AutoCP[slot][0], AutoCP[slot][1], AutoCP[slot][2], AutoCP[slot+1][0], AutoCP[slot+1][1], AutoCP[slot+1][2], 3.0);
 		SetPVarInt(playerid,"LessonSlot", slot + 1);
 		return 1;
 	}
@@ -31159,12 +31160,74 @@ public OnPlayerExitedMenu(playerid) {
 	return true;
 }
 public OnPlayerStateChange(playerid, newstate, oldstate) {
+	if(GetPlayerState(playerid) == 0) {SetPVarInt(playerid, "zanyatayaveh", 1);}
+	else {DeletePVar(playerid, "zanyatayaveh");}
 	new newcar = GetPlayerVehicleID(playerid); 
-	if(newcar >= vehiclebatrak[0] && newcar <= vehiclebatrak[5]) 
+	if(newcar >= vehiclebatrak[0] && newcar <= vehiclebatrak[5]) // итальянская мафия
 	{ 
 		if(FI[fLCN][fID] == 17 || PI[playerid][pMember] == fLCN) { }
-		else { SendClientMessage(playerid,COLOR_GREY,"* Вы не состоите в этой фракции !"); RemovePlayerFromVehicle(playerid); SendClientMessage(playerid, COLOR_GREY, FI[fLCN][fID]);} 
+		else { SendClientMessage(playerid,COLOR_GREY,"* Вы не состоите в этой фракции !"); return RemovePlayerFromVehicle(playerid); } 
 	}
+	if(newcar >= vehiclelspd[0] && newcar <= vehiclelspd[2]) // лспд
+	{
+		if(FI[fLSPD][fID] == 11 || PI[playerid][pMember] == fLSPD)
+		{
+			if(PI[playerid][pRank] >= 8) {}
+			else { SendClientMessage(playerid, COLOR_GREY, "Вы не можете использовать данное транспортное средство, Вам нужен 8 ранг!"); return RemovePlayerFromVehicle(playerid);}
+		}
+		else if(GetPlayerState(playerid) != 0) {}
+		else { SendClientMessage(playerid,COLOR_GREY,"* Вы не состоите в этой фракции !"); return RemovePlayerFromVehicle(playerid); }
+	}
+	if(newcar >= vehiclelspd[3] && newcar <= vehiclelspd[4])// лспд
+	{
+		if(FI[fLSPD][fID] == 11 || PI[playerid][pMember] == fLSPD)
+		{
+			if(PI[playerid][pRank] >= 7) {}
+			else { SendClientMessage(playerid, COLOR_GREY, "Вы не можете использовать данное транспортное средство, Вам нужен 7 ранг!"); return RemovePlayerFromVehicle(playerid);}
+		}
+		else if(GetPlayerState(playerid) != 0) {}
+		else { SendClientMessage(playerid,COLOR_GREY,"* Вы не состоите в этой фракции !"); return RemovePlayerFromVehicle(playerid); }
+	} 
+	if(newcar >= vehiclelspd[5] && newcar <= vehiclelspd[8])// лспд
+	{
+		if(FI[fLSPD][fID] == 11 || PI[playerid][pMember] == fLSPD)
+		{
+			if(PI[playerid][pRank] >= 3) {}
+			else { SendClientMessage(playerid, COLOR_GREY, "Вы не можете использовать данное транспортное средство, Вам нужен 3 ранг!"); return RemovePlayerFromVehicle(playerid);}
+		}
+		else if(GetPlayerState(playerid) != 0) {}
+		else { SendClientMessage(playerid,COLOR_GREY,"* Вы не состоите в этой фракции !"); return RemovePlayerFromVehicle(playerid); }
+	}	
+	if(newcar >= vehiclelspd[10] && newcar <= vehiclelspd[12])// лспд
+	{
+		if(FI[fLSPD][fID] == 11 || PI[playerid][pMember] == fLSPD)
+		{
+			if(PI[playerid][pRank] >= 5) {}
+			else { SendClientMessage(playerid, COLOR_GREY, "Вы не можете использовать данное транспортное средство, Вам нужен 5 ранг!"); return RemovePlayerFromVehicle(playerid);}
+		}
+		else if(GetPlayerState(playerid) != 0) {}
+		else { SendClientMessage(playerid,COLOR_GREY,"* Вы не состоите в этой фракции !"); return RemovePlayerFromVehicle(playerid); }
+	} 
+	if(newcar == vehiclelspd[12])// лспд
+	{
+		if(FI[fLSPD][fID] == 11 || PI[playerid][pMember] == fLSPD)
+		{
+			if(PI[playerid][pRank] >= 8 ){}
+			else {SendClientMessage(playerid, COLOR_GREY, "Вы не можете использовать данное транспортное средство, Вам нужен 9 ранг!"); return RemovePlayerFromVehicle(playerid);}
+		}
+		else if(GetPlayerState(playerid) != 0) {}
+		else {SendClientMessage(playerid,COLOR_GREY,"* Вы не состоите в этой фракции !"); RemovePlayerFromVehicle(playerid); }
+	} 
+	if(newcar >= vehiclelspd[14] && newcar <= vehiclelspd[18])// лспд
+	{
+		if(FI[fLSPD][fID] == 11 || PI[playerid][pMember] == fLSPD)
+		{
+			if(PI[playerid][pRank] >= 1) {}
+			else { SendClientMessage(playerid, COLOR_GREY, "Вы не можете использовать данное транспортное средство, Вам нужен 1 ранг!"); return RemovePlayerFromVehicle(playerid);}
+		}
+		else if(GetPlayerState(playerid) != 0) {}
+		else {SendClientMessage(playerid,COLOR_GREY,"* Вы не состоите в этой фракции !"); return RemovePlayerFromVehicle(playerid); }
+	} 
 	if(newstate == PLAYER_STATE_PASSENGER && (GetPlayerWeapon( playerid ) == 24 || GetPlayerWeapon( playerid ) == 25)) SetPlayerArmedWeapon(playerid, 0);
 	if(newstate == PLAYER_STATE_ONFOOT && oldstate == PLAYER_STATE_NONE) return KickEx(playerid),printf("%d",55555);
 	if(newstate == oldstate) return KickEx(playerid),printf("%d",333333);
@@ -31256,9 +31319,9 @@ public OnPlayerStateChange(playerid, newstate, oldstate) {
 		}
 		if(VehicleInfo[carid][vTeam] == fINSTRUCTORS && GetVehicleModel(carid) == 426) {
 			if(GetPVarInt(playerid,"WaitExam")) {
-				new slot = GetPVarInt(playerid,"LessonSlot");
-				if(!slot) SetPlayerRaceCheckpoint(playerid, 0, AutoCP[slot][0], AutoCP[slot][1], AutoCP[slot][2], AutoCP[slot+1][0], AutoCP[slot+1][1], AutoCP[slot+1][2], 3.0);
-				else SetPlayerRaceCheckpoint(playerid, 0, AutoCP[slot - 1][0], AutoCP[slot - 1][1], AutoCP[slot - 1][2], AutoCP[slot][0], AutoCP[slot][1], AutoCP[slot][2], 3.0);
+				//new slot = GetPVarInt(playerid,"LessonSlot");
+				//if(!slot) SetPlayerRaceCheckpoint(playerid, 0, AutoCP[slot][0], AutoCP[slot][1], AutoCP[slot][2], AutoCP[slot+1][0], AutoCP[slot+1][1], AutoCP[slot+1][2], 3.0);
+				//else SetPlayerRaceCheckpoint(playerid, 0, AutoCP[slot - 1][0], AutoCP[slot - 1][1], AutoCP[slot - 1][2], AutoCP[slot][0], AutoCP[slot][1], AutoCP[slot][2], 3.0);
 				return 1;
 			}
 		}
@@ -31875,7 +31938,7 @@ public OnGameModeInit() {
 	SetGameModeText("World RolePlay");
 	new MySQLOpt: option_id = mysql_init_options();
 	mysql_set_option(option_id, AUTO_RECONNECT, true);
-    connects = mysql_connect("127.0.0.1", "gs183015", "fCQoAqzEbp4C", "gs183015", option_id);
+    connects = mysql_connect("127.0.0.1", "gs184301", "tnijqaNAoFas", "gs184301" , option_id);
 	mysql_log(ERROR | WARNING);
 	SendRconCommand("hostname World RolePlay");
 	/*============================================================================*/
@@ -32215,11 +32278,11 @@ public OnGameModeInit() {
 	CreateObject(808, 1790.80481, -1920.86780, 13.78820,   0.00000, 0.00000, 180.00000);
 	CreateObject(673, 1790.99036, -1924.17249, 10.23082,   0.00000, 0.00000, 0.00000);
 	CreateObject(673, 1792.32678, -1903.36279, 10.23082,   0.00000, 0.00000, 345.02136);
-	CreateObject(19452, 1756.84656, -1894.04736, 12.50205,   0.00000, 90.00000, 90.00000);
-	CreateObject(19452, 1769.52954, -1894.03687, 12.50210,   0.00000, 90.00000, 90.00000);
-	CreateObject(19452, 1763.15723, -1887.46240, 12.50210,   0.00000, 90.00000, 0.00000);
-	CreateObject(19452, 1763.17725, -1897.08313, 12.50210,   0.00000, 90.00000, 0.00000);
-	CreateObject(19452, 1763.17725, -1902.36316, 12.50210,   0.00000, 90.00000, 0.00000);
+	CreateObject(19452, 1769.7996, -1893.8873, 12.5021,   0.00000, 90.00000, 90.00000);
+	CreateObject(19452, 1756.6229, -1894.0471, 12.5021,   0.00000, 90.00000, 90.00000);
+	CreateObject(19452, 1763.1754, -1883.2583, 12.5021,   0.00000, 90.00000, 0.00000);
+	CreateObject(19452, 1763.1908, -1892.9005, 12.5021,   0.00000, 90.00000, 0.00000);
+	CreateObject(19452, 1763.1727, -1902.5267, 12.5021,   0.00000, 90.00000, 0.00000);
 	CreateObject(19381, 1756.17786, -1887.48242, 12.50480,   0.00000, 90.00000, 0.00000);
 	CreateObject(715, 1760.73694, -1890.00000, 20.81223,   0.00000, 0.00000, 0.00000);
 	CreateObject(14400, 1754.56030, -1890.47156, 13.03845,   0.00000, 0.00000, 0.00000);
@@ -33017,8 +33080,6 @@ stock Create3dText() {
 	CreateDynamic3DTextLabel("Место для разгрузки боеприпасов",CGOLD,310.7923,1801.0048,17.6406, 25.0);
 
 	CreateDynamic3DTextLabel("Сделать предложение: "W"/propose\n"ORANGE"Расторжение брака: "W"/divorce",CGOLD,2233.2588,-1333.1310,23.9815, 25.0);
-
-	CreateDynamic3DTextLabel("Для ареста преступника, используйте: "NO"/arrest [id]",-1,1560.2266,-1694.2327,5.8970, 10.0,INVALID_PLAYER_ID,INVALID_VEHICLE_ID,1, -1, -1);//lspd
 
 	CreateDynamic3DTextLabel("Выезд из гаража: "GREEN"H",-1, 1050.0936,-1868.7532,894.0478,17.0,INVALID_PLAYER_ID,INVALID_VEHICLE_ID,1, -1, -1);
 	CreateDynamic3DTextLabel("Выезд из гаража: "GREEN"H",-1, 1123.6130,-1849.0645,894.0478,17.0,INVALID_PLAYER_ID,INVALID_VEHICLE_ID,1, -1, -1);
@@ -35655,7 +35716,7 @@ stock PayChecks(i) {
 	}
 	return 0;
 }
-stock PayDay() {
+stock PayDay(playerid) {
 	condition_of_roads_ = random(3);
 	new bool:newday, day = GetDayNumber(), h, m, s;
 	if(gCurDay != day)	{gCurDay = day; newday = true;}
@@ -35747,6 +35808,10 @@ stock PayDay() {
 		format(string,sizeof(string),"Баланс: "GREEN"$%i",PI[i][pBank]);
 		SendClientMessage(i,-1,string);
 		SendClientMessage(i,COLOR_GREY, "--------------------------------------------------");
+		SetTimerEx("SpcarsAvto",60*1000,false,"i",playerid);
+		new stringv2[100];
+		format(stringv2,sizeof(stringv2), "Машины заспавнятся через 1 минуту, займите свои автомобили!");
+		SendClientMessageToAll(COLOR_BLUE, stringv2);
 		if(PI[i][pExp]+1 >= (PI[i][pLevel])*6) {
 			PI[i][pLevel] += 1; 
 			PI[i][pExp] = 0; 
@@ -37099,18 +37164,26 @@ cmd:battery(playerid)
 	GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
 	if(GetEngineStat(vehicleid)) return SendClientMessage(playerid, COLOR_GREY, "Прежде чем зарядиться, заглушите двигатель");
 	if(GetPVarInt(playerid,"tank_vbattery")) return SendClientMessage(playerid, COLOR_GREY, "Вы уже заправляете автомобиль");
-	SetPVarInt(playerid, "tank_vbattery", 1);
-	SetTimer("ChargeBattery", 1100, true);
+	if(VehicleInfo[vehicleid][vAkum] >= 100) return SendClientMessage(playerid, COLOR_GREY, "У вас полностью заряжен аккамулятор!");
+	SetPVarInt(playerid, "zryadka", 1);
 	return 1;
 }
 forward ChargeBattery(playerid);
 public ChargeBattery(playerid)
 {
 	new vehicleid = GetPlayerVehicleID(playerid);
-	if(VehicleInfo[vehicleid][vAkum] == 100) return SendClientMessage(playerid, COLOR_GRAY, "Вы успешно зарядили аккамулятор транспорта!");
-	VehicleInfo[vehicleid][vAkum] += 1;
+	if(VehicleInfo[vehicleid][vAkum] < 100) 
+	{
+		if(GetEngineStat(vehicleid)) 
+		{
+			DeletePVar(playerid, "tank_vbattery"); 
+			return SendClientMessage(playerid, COLOR_GREY, "Прежде чем зарядиться, заглушите двигатель");
+		}
+		VehicleInfo[vehicleid][vAkum] += 1;
+	}
+	else return SendClientMessage(playerid, COLOR_GRAY, "Вы успешно зарядили аккамулятор транспорта!");
 	return 1;
-}
+} 
 CMD:buyfuel(playerid) {
 	if(GetInvent(playerid, 454)+1 > 40) return SendClientMessage(playerid, COLOR_GREY, "В инвентаре недостаточно места");
 	new i = GetNearestTrunckFuel(playerid);
@@ -40924,8 +40997,8 @@ CMD:report(playerid,params[]) {
 CMD:play(playerid) return D(playerid, D_RADIO, DSL, ""P"Онлайн радио", ""P"1."W" Дорожное Радио\n\
 	"P"2."W" Европа плюс\n\
 	"P"3."W" Радио Забава\n\
-	"P"4."W" Шансон\n\
-	"P"5."W" Рекорд Трап\n\
+	"P"4."W" Шансон Рекорд\n\
+	"P"5."W" Маруся FM\n\
 	"P"6."W" Премиум Рекорд\n\
 	"P"7."W" Своя Музыка\n\
 	"P"8."W" Выключить", "Принять", "Отмена");
@@ -41312,19 +41385,19 @@ public OnPlayerText(playerid, text[]) {
 		return false;
 	}
 	if(PI[playerid][pMember] == 0 || start_work[playerid] == 0) {
-		format(string,sizeof(string),"- %s {%06x}(%s) [%d]",text,GetPlayerColor(playerid) >>> 8,player_name[playerid],playerid);
+		format(string,sizeof(string),"{%06x}%s[%d] говорит: %s",GetPlayerColor(playerid) >>> 8,player_name[playerid],playerid,text);
 	}
 	else if(TI[playerid][tMasked]) {
-		format(string,sizeof(string),"- %s {000000}(Незнакомец) "W"[%d]",text,playerid);
+		format(string,sizeof(string),"{000000}(Незнакомец)[%d] говорит: %s ",playerid, text);
 		//NickName(playerid);
 	}
 	else if(TI[playerid][tMaskTime]) 
 	{
-		format(string,sizeof(string),"- %s {000000}(Незнакомец) "W"[%d]",text,playerid);
+		format(string,sizeof(string),"{000000}(Незнакомец)[%d] говорит: %s ",playerid, text);
 		//NickName(playerid);
 	}
 	else {
-		format(string,sizeof(string),"- %s {%06x}(%s) [%d]",text,GetPlayerColor(playerid) >>> 8,player_name[playerid],playerid);
+		format(string,sizeof(string),"{%06x}%s[%d] говорит: %s",GetPlayerColor(playerid) >>> 8,player_name[playerid],playerid,text);
 	}
 	ProxDetector(20.0,playerid,string,-1);
 	if(!TI[playerid][tTazer] && !TI[playerid][tCuffedTime] && GetPVarInt(playerid,"drug_time") < gettime() && GetPVarInt(playerid,"anti_sbiv_time") < unix && !TI[playerid][tTied] && !GetPVarInt(playerid,"Animation")) {
@@ -41353,6 +41426,31 @@ stock GetColorFrac(id) {
 	return str;
 }
 public OnPlayerUpdate(playerid) {
+	if(GetPVarInt(playerid, "zryadka"))
+	{
+		new vehicleid = GetPlayerVehicleID(playerid);
+		if(VehicleInfo[vehicleid][vAkum] < 100)
+		{
+			if(GetEngineStat(vehicleid)) 
+			{
+				DeletePVar(playerid, "tank_vbattery"); 
+				DeletePVar(playerid, "zryadka");
+				return SendClientMessage(playerid, COLOR_GREY, "Вы прервали зарядку автомобиля, для продолжения /battery");
+			}
+			else 
+			{
+				VehicleInfo[vehicleid][vAkum] += 1;
+				PI[playerid][pCash] -= 10;
+			}
+		}
+		else 
+		{
+			DeletePVar(playerid, "tank_vbattery"); 
+			DeletePVar(playerid, "zryadka");
+			return SendClientMessage(playerid, COLOR_GRAY, "Вы успешно зарядили аккамулятор транспорта!\n\
+																Можете отправляться в путь!");
+		}
+	}
 	TI[playerid][tAFK] = 0;
 	return 1;
 }
@@ -44798,6 +44896,7 @@ stock ChosePlayerSkin(playerid) {
 }
 CB: SpcarsAvto(playerid) {
 	for(new i = GetVehiclePoolSize()+1; --i != 0;) {
+		if(GetPVarInt(playerid, "zanyatayaveh")) continue;
 		if(IsVehicleOccupied(i)) continue; 
 		if(GetVehicleModel(i) == 450) continue; 
 		SetVehicleToRespawn(i);
@@ -44805,6 +44904,7 @@ CB: SpcarsAvto(playerid) {
 	new string[100];
 	format(string,sizeof(string),"Администратор: %s заспавнил машины",player_name[playerid]);
 	AdmMSG(COLOR_LIGHTRED,string);
+	return 1;
 }
 
 enum attached_object_data
@@ -45156,7 +45256,7 @@ stock UpdateBusinessText(id) {
 			default: control = "-";
 			}
 			switch(gBusiness[id][bizzType]) {
-			case 7: format(mes2,sizeof(mes2),""O"%s\n\n"G"Владелец: "P"%s\n"G"Стоимость: "W"%d$\n"G"Цена за 1 литр топлива: "GREEN"%d$\n"G"Купить канистру: "W"/buyfuel\n"G"Заправиться: "W"/fill\n"G"Зарядить автомобиль: "W"/battery\n"G"Крышует: "W"%s",gBusiness[id][bizzName],gBusiness[id][bizzOwner],gBusiness[id][bizzSellPrice],gBusiness[id][bizzPrice],control);
+			case 7: format(mes2,sizeof(mes2),""O"%s\n\n"G"Владелец: "P"%s\n"G"Стоимость: "W"%d$\n"G"Цена за 1 литр топлива: "GREEN"%d$\n"G"Купить канистру: "W"/buyfuel\n"G"Заправиться: "W"/fill\n"G"Зарядить автомобиль: "W"/battery\n"G"Цена за 1 единицу заряда: "GREEN"10$\n"G"Крышует: "W"%s",gBusiness[id][bizzName],gBusiness[id][bizzOwner],gBusiness[id][bizzSellPrice],gBusiness[id][bizzPrice],control);
 			default: {
 					if(gBusiness[id][bizzEnter]) format(mes2,sizeof(mes2),""O"%s\n\n"G"Владелец: "P"%s\n"G"Стоимость: "W"$%d\n"G"Цена за вход: "GREEN"$%i\n"G"Крышует: "W"%s",gBusiness[id][bizzName],gBusiness[id][bizzOwner],gBusiness[id][bizzSellPrice],gBusiness[id][bizzEnter],control);
 					else format(mes2,sizeof(mes2),""O"%s\n\n"G"Владелец: "P"%s\n"G"Стоимость: "W"%d$\n"G"Крышует: "W"%s",gBusiness[id][bizzName],gBusiness[id][bizzOwner],gBusiness[id][bizzSellPrice],control);
@@ -45715,8 +45815,10 @@ stock load_vehicles() {
 		cache_get_value_index_int(i,8,gTransport[i][trSellable]);
 		cache_get_value_index_int(i,9,gTransport[i][trProds]);
 	}
+	//mysql_query(connects, "DELETE FROM `goscar` WHERE model = '596'");
+	//mysql_query(connects, "DELETE FROM `goscar` WHERE model = '523'");
 	printf("[Загрузка ...] Транспорт успешно загружен (%i шт.)", rows);
-	//================ Транспорт Итальянской мафии =====================
+	//================ Транспорт Итальянской мафии ======================
 	vehiclebatrak[0] = AddStaticVehicleEx(579, 1235.6318, -893.8714, 42.5592, -84.0000, 6, 6, 100);
 	vehiclebatrak[1] = AddStaticVehicleEx(579, 1235.3328, -887.5833, 42.5592, -84.0000, 6, 6, 100);
 	vehiclebatrak[2] = AddStaticVehicleEx(413, 1235.4478, -890.7241, 42.8491, -84.0000, 6, 6, 100);
@@ -45725,7 +45827,29 @@ stock load_vehicles() {
 	vehiclebatrak[5] = AddStaticVehicleEx(580, 1286.5410, -902.3293, 42.9964, -84.0000, 6, 6, 100);
 	VehicleInfo[vehiclebatrak[0]][vAkum] = 100;VehicleInfo[vehiclebatrak[1]][vAkum] = 100;VehicleInfo[vehiclebatrak[2]][vAkum] = 100;VehicleInfo[vehiclebatrak[3]][vAkum] = 100;VehicleInfo[vehiclebatrak[4]][vAkum] = 100;VehicleInfo[vehiclebatrak[5]][vAkum] = 100;
 	VehicleInfo[vehiclebatrak[0]][vFuel] = 100;VehicleInfo[vehiclebatrak[1]][vFuel] = 100;VehicleInfo[vehiclebatrak[2]][vFuel] = 100;VehicleInfo[vehiclebatrak[3]][vFuel] = 100;VehicleInfo[vehiclebatrak[4]][vFuel] = 100;VehicleInfo[vehiclebatrak[5]][vFuel] = 100;
-	//==================================================================
+	//===================================================================
+	//======================= Транспорт ЛСПД ============================
+	vehiclelspd[0] = AddStaticVehicleEx(427, 1553.3420, -1607.4092, 13.3082, -179.0000, 0, 0, 100);
+	vehiclelspd[1] = AddStaticVehicleEx(427, 1556.9703, -1607.3798, 13.3082, -179.0000, 0, 0, 100);
+	vehiclelspd[2] = AddStaticVehicleEx(427, 1560.4553, -1607.3889, 13.3082, -179.0000, 0, 0, 100);
+	vehiclelspd[3] = AddStaticVehicleEx(528, 1563.9705, -1607.7632, 13.2417, -180.0000, 0, 0, 100);
+	vehiclelspd[4] = AddStaticVehicleEx(528, 1567.4531, -1607.7847, 13.2417, -180.0000, 0, 0, 100);
+	vehiclelspd[5] = AddStaticVehicleEx(596, 1570.7377, -1607.5173, 12.9441, -181.0000, 1, 0, 100);
+	vehiclelspd[6] = AddStaticVehicleEx(596, 1574.1162, -1607.6606, 12.9441, -181.0000, 1, 0, 100);
+	vehiclelspd[7] = AddStaticVehicleEx(596, 1577.1599, -1607.6594, 12.9441, -181.0000, 1, 0, 100);
+	vehiclelspd[8] = AddStaticVehicleEx(596, 1580.2411, -1607.7496, 12.9441, -181.0000, 1, 0, 100);
+	vehiclelspd[10] = AddStaticVehicleEx(599, 1583.7236, -1607.8884, 13.3806, -180.0000, 0, 0, 100);
+	vehiclelspd[11] = AddStaticVehicleEx(599, 1587.2660, -1607.9458, 13.3806, -180.0000, 0, 0, 100);
+	vehiclelspd[12] = AddStaticVehicleEx(599, 1590.5470, -1607.9381, 13.3806, -180.0000, 0, 0, 100);
+	vehiclelspd[13] = AddStaticVehicleEx(497, 1546.4990, -1608.4860, 13.5145, 0.0000, 0, 0, 100);
+	vehiclelspd[14] = AddStaticVehicleEx(523, 1593.8879, -1607.7197, 12.8145, -182.0000, 0, 0, 100);
+	vehiclelspd[15] = AddStaticVehicleEx(523, 1596.0393, -1607.8796, 12.8145, -182.0000, 0, 0, 100);
+	vehiclelspd[16] = AddStaticVehicleEx(523, 1598.0753, -1607.9111, 12.8145, -182.0000, 0, 0, 100);
+	vehiclelspd[17] = AddStaticVehicleEx(523, 1600.3739, -1607.9921, 12.8145, -182.0000, 0, 0, 100);
+	vehiclelspd[18] = AddStaticVehicleEx(523, 1602.5896, -1607.9382, 12.8145, -182.0000, 0, 0, 100);
+	VehicleInfo[vehiclelspd[0]][vAkum] = 100;VehicleInfo[vehiclelspd[1]][vAkum] = 100;VehicleInfo[vehiclelspd[2]][vAkum] = 100;VehicleInfo[vehiclelspd[3]][vAkum] = 100;VehicleInfo[vehiclelspd[4]][vAkum] = 100;VehicleInfo[vehiclelspd[5]][vAkum] = 100;VehicleInfo[vehiclelspd[6]][vAkum] = 100;VehicleInfo[vehiclelspd[7]][vAkum] = 100;VehicleInfo[vehiclelspd[8]][vAkum] = 100;VehicleInfo[vehiclelspd[9]][vAkum] = 100;VehicleInfo[vehiclelspd[10]][vAkum] = 100;VehicleInfo[vehiclelspd[11]][vAkum] = 100;VehicleInfo[vehiclelspd[12]][vAkum] = 100;VehicleInfo[vehiclelspd[13]][vAkum] = 100;VehicleInfo[vehiclelspd[14]][vAkum] = 100;VehicleInfo[vehiclelspd[15]][vAkum] = 100;VehicleInfo[vehiclelspd[16]][vAkum] = 100;VehicleInfo[vehiclelspd[17]][vAkum] = 100;VehicleInfo[vehiclelspd[18]][vAkum] = 100;
+	VehicleInfo[vehiclelspd[0]][vFuel] = 100;VehicleInfo[vehiclelspd[1]][vFuel] = 100;VehicleInfo[vehiclelspd[2]][vFuel] = 100;VehicleInfo[vehiclelspd[3]][vFuel] = 100;VehicleInfo[vehiclelspd[4]][vFuel] = 100;VehicleInfo[vehiclelspd[5]][vFuel] = 100;VehicleInfo[vehiclelspd[6]][vFuel] = 100;VehicleInfo[vehiclelspd[7]][vFuel] = 100;VehicleInfo[vehiclelspd[8]][vFuel] = 100;VehicleInfo[vehiclelspd[9]][vFuel] = 100;VehicleInfo[vehiclelspd[10]][vFuel] = 100;VehicleInfo[vehiclelspd[11]][vFuel] = 100;VehicleInfo[vehiclelspd[12]][vFuel] = 100;VehicleInfo[vehiclelspd[13]][vFuel] = 100;VehicleInfo[vehiclelspd[14]][vFuel] = 100;VehicleInfo[vehiclelspd[15]][vFuel] = 100;VehicleInfo[vehiclelspd[16]][vFuel] = 100;VehicleInfo[vehiclelspd[17]][vFuel] = 100;VehicleInfo[vehiclelspd[18]][vFuel] = 100;
+	//===================================================================
 	cache_delete(result);
 	return 1;
 }
@@ -53568,7 +53692,7 @@ CMD:si(playerid,params[]) {
 }
 CMD:payday(playerid, params[]) {
 	if(PI[playerid][pAdmin] < 7 || dostup[playerid] == 0) return true;
-	PayDay();
+	PayDay(playerid);
 	return true;
 }
 CMD:cc(playerid, params[]) {
@@ -67294,7 +67418,7 @@ stock SendAdminActionMessage(color, const text[]) {
 	}
 }
 
-CB:OnGameModeUpdate() {
+CB:OnGameModeUpdate(playerid) {
 	GlobalSecondTimer = SetTimer("OnGameModeUpdate", 1000, false);
 	gettime(tmphour, tmpminute, tmpsecond);
 	if(tmpminute == 50 && tmpsecond == 0)
@@ -67307,7 +67431,7 @@ CB:OnGameModeUpdate() {
 		ghour = tmphour;
 		format(CHAT_GLOBAL, sizeof (CHAT_GLOBAL), "Текущее время —"W" %d:00", tmphour);
 		SendClientMessageToAll(COLOR_BLUE, CHAT_GLOBAL);
-		PayDay();
+		PayDay(playerid);
 	}
 	if(tmpminute == 13 && tmpsecond == 0 || tmpminute == 45 && tmpsecond == 0) SendClientMessageToAll(COLOR_YELLOW, "Список доступных вакансий: {F18730}/vacancy");
 	

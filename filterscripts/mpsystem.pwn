@@ -7,7 +7,7 @@
 
 #define D_ADDMP           3578
 
-#define NameServer        "[Maze MP]" // Изменить на название вашего сервера
+#define NameServer        "[World RP]" // Изменить на название вашего сервера
 #define DontCreateMP      "[!] Сначала создайте мероприятие."
 #define MAX_MPCAR         20
 #define MAX_TIMER         20
